@@ -14,3 +14,23 @@ db.practice.aggregate([
     { $project: { gender: 1, age: true } },
     { $match: { favouriteColor: 'Indigo' } }
 ])
+
+
+
+// ! 8.3
+
+// * It creates a new collection with a new field named salary
+db.practice.aggregate([
+    {
+        $addFields: {
+            salary: {
+                $toInt: {
+                    $floor: {
+                        $multiply: [{ $rand: {} }, 100]
+                    }
+                }
+            }
+        }
+    },
+    { $out: "salarywithpractice" }
+])
