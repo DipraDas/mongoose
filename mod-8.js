@@ -74,3 +74,25 @@ db.practice.aggregate([
         }
     }
 ])
+
+
+// ! 8.5
+
+db.practice.aggregate([
+    {
+        $group: {
+            _id: '$salary',
+            persons: { $sum: 1 }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            salary: '$_id',
+            persons: 1
+        }
+    },
+    {
+        $sort: { _id: 1 }
+    }
+])
