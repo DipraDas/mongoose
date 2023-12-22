@@ -34,3 +34,43 @@ db.practice.aggregate([
     },
     { $out: "salarywithpractice" }
 ])
+
+
+
+// ! 8.4
+
+// * Merging in the same 
+db.practice.aggregate([
+    {
+        $addFields: {
+            salary: {
+                $toInt: {
+                    $floor: {
+                        $multiply: [{ $rand: {} }, 100]
+                    }
+                }
+            }
+        }
+    },
+    { $merge: 'practice' }
+])
+
+
+// * Grouping based on one condition
+db.practice.aggregate([
+    {
+        $group: { _id: "$gender" }
+    }
+])
+
+// * Grouping based on more condition
+db.practice.aggregate([
+    {
+        $group: {
+            _id: {
+                age: '$age',
+                gender: '$gender'
+            }
+        }
+    }
+])
