@@ -78,6 +78,7 @@ db.practice.aggregate([
 
 // ! 8.5
 
+// * Grouping based on more condition and naming
 db.practice.aggregate([
     {
         $group: {
@@ -94,5 +95,30 @@ db.practice.aggregate([
     },
     {
         $sort: { _id: 1 }
+    }
+])
+
+
+// ! 8.6
+
+// * Exploring Accumulator
+db.practice.aggregate([
+    {
+        $group: {
+            _id: null,
+            count: { $sum: '$salary' },
+            maxSalary: { $max: '$salary' },
+            minSalary: { $min: '$salary' },
+            avgSalary: { $avg: '$salary' }
+        }
+    },
+    {
+        $project: {
+            count: 1,
+            maxSalary: 1,
+            minSalary: 1,
+            avgSalary: 1,
+            salaryRange: { $subtract: ["$maxSalary", "$minSalary"] }
+        }
     }
 ])
