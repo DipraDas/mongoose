@@ -161,3 +161,25 @@ db.practice.aggregate([
         }
     }
 ])
+
+// ! 8.9 
+
+db.practice.aggregate([
+    {
+        $match: { email: 'dladley0@washingtonpost.com' },
+        $lookup: {
+            from: "additionalInfo",
+            localField: "email",
+            foreignField: "userEmail",
+            as: "additionalInformation"
+        }
+    },
+])
+
+db.practice.aggregate([
+    {
+        $unset: {
+            userEmail: 1
+        }
+    }
+])
