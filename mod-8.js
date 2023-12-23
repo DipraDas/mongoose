@@ -122,3 +122,20 @@ db.practice.aggregate([
         }
     }
 ])
+
+
+// ! 8.7
+
+// * For extracting any data that are in and array of object
+db.practice.aggregate([
+    {
+        $unwind: "$friends"
+    },
+    {
+        $group: {
+            _id: "$friends",
+            count: { $sum: 1 }
+
+        }
+    }
+])
